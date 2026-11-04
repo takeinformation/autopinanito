@@ -1,0 +1,25 @@
+name: Pinterest Auto Publisher
+
+on:
+  schedule:
+    # يخدم 4 المرات في النهار (كل 6 سوايع)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # زر لتشغيل السكريبت يدوياً في أي وقت
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Auto Pin Script
+        run: python autopin.py
